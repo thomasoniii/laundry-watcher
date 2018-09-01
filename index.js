@@ -6,6 +6,7 @@ googlehome.accent('us');
 //googlehome.notify('System offline. System online', (res) => {});
 //googlehome.notify('System online', (res) => {});
 
+const INTERVAL = 60 * 1000;
 
 let status = { washer : 'stopped', dryer : 'stopped' };
 
@@ -33,5 +34,5 @@ setInterval( () => {
         googlehome.notify(message);
       }
     })
-    .catch(err => console.log(`Could not connect : ${err.message}`);
-}, 60 * 1000);
+    .catch(err => console.log(`Could not connect : ${err.message}`));
+}, INTERVAL);
