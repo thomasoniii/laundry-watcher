@@ -1,11 +1,6 @@
 const googlehome = require('google-home-notifier');
 const axios = require('axios');
 
-//googlehome.device('Google-Home-dc3c6f4886e0fe534cf5d778abd71730');
-//googlehome.accent('us');
-//googlehome.notify('System offline. System online', (res) => {});
-//googlehome.notify('System online', (res) => {});
-
 const INTERVAL = 60 * 1000;
 //const INTERVAL = 500;
 
