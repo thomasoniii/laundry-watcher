@@ -7,6 +7,7 @@ googlehome.accent('us');
 //googlehome.notify('System online', (res) => {});
 
 const INTERVAL = 60 * 1000;
+//const INTERVAL = 500;
 
 let status = { washer : 'stopped', dryer : 'stopped' };
 
@@ -27,12 +28,12 @@ setInterval( () => {
 
       status = newStatus;
 
-      console.log(`Current status : washer : ${status.washer} , dryer : ${status.dryer}`);
+      //console.log(`Current status : washer : ${status.washer} , dryer : ${status.dryer}`);
 
       if (messages.length) {
         const message = messages.join('. ');
         googlehome.notify(message);
       }
     })
-    .catch(err => console.log(`Could not connect : ${err.message}`));
+    .catch(err => {/*console.log(`Could not connect : ${err.message}`)*/});
 }, INTERVAL);
