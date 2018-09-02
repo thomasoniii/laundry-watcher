@@ -1,22 +1,31 @@
 const googlehome = require('google-home-notifier');
 const axios = require('axios');
 
-googlehome.device('Google-Home-dc3c6f4886e0fe534cf5d778abd71730');
-googlehome.accent('us');
+//googlehome.device('Google-Home-dc3c6f4886e0fe534cf5d778abd71730');
+//googlehome.accent('us');
 //googlehome.notify('System offline. System online', (res) => {});
 //googlehome.notify('System online', (res) => {});
 
 const INTERVAL = 60 * 1000;
 //const INTERVAL = 500;
 
-let status = { washer : 'stopped', dryer : 'stopped' };
+const DEBUG = false;
+const STATUS_URL = 'http://localhost:3000/status';
+//const STATUS_URL = 'http://laundry.local:3000/status';
+
+let status         = { washer : 'stopped', dryer : 'stopped' };
+let pendingMessage = 'system offline';
 
 setInterval( () => {
-  axios.get('http://localhost:3000/status')
+  axios.get(STATUS_URL)
     .then( response => {
       const newStatus = response.data;
 
       let messages = [];
+
+      if (pendingMessage !== undefined) {
+        messages.push(pendingMessage);
+      }
 
       if (newStatus.washer === 'stopped' && status.washer === 'running') {
         messages.push('Washer is done');
@@ -28,12 +37,24 @@ setInterval( () => {
 
       status = newStatus;
 
-      //console.log(`Current status : washer : ${status.washer} , dryer : ${status.dryer}`);
+      if (DEBUG) {
+        console.log(`Current status : washer : ${status.washer} , dryer : ${status.dryer}`);
+      }
 
       if (messages.length) {
         const message = messages.join('. ');
-        googlehome.notify(message);
+        try {
+          googlehome.device('Google-Home-dc3c6f4886e0fe534cf5d778abd71730');
+          googlehome.accent('us');
+          googlehome.notify(message, () => { pendingMessage = undefined } );
+        }
+        catch(e) { pendingMessage = message };
       }
+
     })
-    .catch(err => {/*console.log(`Could not connect : ${err.message}`)*/});
+    .catch(err => {
+      if (DEBUG) {
+        console.log(`Could not connect : ${err.message}`)
+      }
+    });
 }, INTERVAL);
