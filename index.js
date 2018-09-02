@@ -14,7 +14,7 @@ const STATUS_URL = 'http://localhost:3000/status';
 //const STATUS_URL = 'http://laundry.local:3000/status';
 
 let status         = { washer : 'stopped', dryer : 'stopped' };
-let pendingMessage = 'system offline';
+let pendingMessage = undefined;
 
 setInterval( () => {
   axios.get(STATUS_URL)
