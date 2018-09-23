@@ -1,4 +1,4 @@
-const GoogleHome = require('node-googlehome');
+const googlehome = require('google-home-notifier');
 const axios = require('axios');
 
 const INTERVAL = 60 * 1000;
@@ -39,11 +39,13 @@ setInterval( () => {
       if (messages.length) {
         const message = messages.join('. ');
         try {
-          const livingroom = new GoogleHome.Connecter('10.0.1.226');
-          livingroom.speak(message.join('. '));
+          googlehome.device('Google-Home-dc3c6f4886e0fe534cf5d778abd71730');
+          googlehome.accent('us');
+          googlehome.notify(message, () => { pendingMessage = undefined } );
 
-          const bedroom = new GoogleHome.Connecter('10.0.1.84');
-          bedroom.speak(message.join('. '));
+          //googlehome.device('Google-Home-Mini-82ab55e180066cdad15b11316ed1a307');
+          //googlehome.accent('us');
+          //googlehome.notify(message, () => { pendingMessage = undefined } );
         }
         catch(e) { pendingMessage = message };
       }
