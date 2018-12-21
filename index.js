@@ -1,4 +1,4 @@
-const googlehome = require('google-home-notifier');
+const GoogleHome = require('google-home-push');
 const axios = require('axios');
 
 const INTERVAL = 60 * 1000;
@@ -39,13 +39,9 @@ setInterval( () => {
       if (messages.length) {
         const message = messages.join('. ');
         try {
-          googlehome.device('Google-Home-dc3c6f4886e0fe534cf5d778abd71730');
-          googlehome.accent('us');
-          googlehome.notify(message, () => { pendingMessage = undefined } );
+          const myHome = new GoolgeHome('House party');
+          myHome.speak(message);
 
-          //googlehome.device('Google-Home-Mini-82ab55e180066cdad15b11316ed1a307');
-          //googlehome.accent('us');
-          //googlehome.notify(message, () => { pendingMessage = undefined } );
         }
         catch(e) { pendingMessage = message };
       }
