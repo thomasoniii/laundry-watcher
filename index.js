@@ -13,7 +13,7 @@ let pendingMessage = undefined;
 
 const myHome = new GoogleHome('Living room Home');
 
-setInterval( () => {
+setInterval( async () => {
   axios.get(STATUS_URL)
     .then( response => {
       const newStatus = response.data;
@@ -41,8 +41,7 @@ setInterval( () => {
       if (messages.length) {
         const message = messages.join('. ');
         try {
-          myHome.speak(message);
-
+          await myHome.speak(message);
         }
         catch(e) { pendingMessage = message };
       }
