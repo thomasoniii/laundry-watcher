@@ -11,6 +11,8 @@ const STATUS_URL = 'http://localhost:3000/status';
 let status         = { washer : 'stopped', dryer : 'stopped' };
 let pendingMessage = undefined;
 
+const myHome = new GoogleHome('Living room Home');
+
 setInterval( () => {
   axios.get(STATUS_URL)
     .then( response => {
@@ -39,7 +41,6 @@ setInterval( () => {
       if (messages.length) {
         const message = messages.join('. ');
         try {
-          const myHome = new GoogleHome('Living room Home');
           myHome.speak(message);
 
         }
