@@ -39,7 +39,7 @@ setInterval( () => {
       if (messages.length) {
         const message = messages.join('. ');
         try {
-          const myHome = new GoolgeHome('Living room Home');
+          const myHome = new GoogleHome('Living room Home');
           myHome.speak(message);
 
         }

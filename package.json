@@ -9,7 +9,7 @@
   "author": "Jim Thomason",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
-    "google-home-push": "^1.1.2"
+    "axios": "^0.18.1",
+    "google-home-push": "^1.1.3"
   }
 }
