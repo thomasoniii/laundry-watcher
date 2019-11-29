@@ -13,9 +13,9 @@ let pendingMessage = undefined;
 
 const myHome = new GoogleHome('Living room Home');
 
-setInterval( async () => {
+setInterval( () => {
   axios.get(STATUS_URL)
-    .then( response => {
+    .then( async response => {
       const newStatus = response.data;
 
       let messages = [];
